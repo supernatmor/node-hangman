@@ -47,20 +47,21 @@ function checkLetter() {
 	for(var i = 0; i<word.array.length; i++){
 		if(letter.input.input === word.array[i]){
 			letter.match = true;//stops wrong count
-			word.blanks[i] = letter.input;//change display of matched letter
+			word.blanks[i] = letter.input.input;//change display of matched letter
 		}
 	}
 
 	//if letter doesn't match any letters in word, run this
 	if(letter.match == false){
 		letter.wrong++;//increments missed counter
-		letter.wrong.push(letter.input)//push incorrect letter to array
+		//letter.wrong.push(letter.input)//push incorrect letter to array
 
 		if(letter.wrong>4){//loss condition
 			console.log("You lose, try again...");
 			return;
 		}
 	}
+	console.log(word.blanks);
 	console.log("You got one!! Go again!");
 	getLetter();//recursive function call to keep prompt running
 }
