@@ -1,9 +1,10 @@
 var inquirer = require("inquirer");
 
-var guess = "hangman";
+var guess = process.argv[2];
 var missed = 0;
 var word;
 var letter;
+var done = false;
 
 function Word(guess) {
     this.guess = guess,
@@ -21,13 +22,11 @@ function Letter(char) {
 //calling this function creates word to be guessed
 function buildWord() {
     word = new Word(guess);
-    console.log(word.guess);
 
     for (var i = 0; i < word.guess.length; i++) {
         word.array.push(word.guess[i]);
         word.blanks.push("_ ");
-    }
-    console.log(word.array);
+    } 
     console.log(word.blanks);
 
     getLetter();
@@ -44,6 +43,7 @@ function getLetter() {
 
 //calling this function checks user input against word array
 function checkLetter() {
+	letter.match = false;
 	for(var i = 0; i<word.array.length; i++){
 		if(letter.input.input === word.array[i]){
 			letter.match = true;//stops wrong count
@@ -53,7 +53,9 @@ function checkLetter() {
 
 	//if letter doesn't match any letters in word, run this
 	if(letter.match == false){
+		console.log("Wrong, go again");
 		letter.wrong++;//increments missed counter
+		console.log(letter.wrong);
 		//letter.wrong.push(letter.input)//push incorrect letter to array
 
 		if(letter.wrong>4){//loss condition
@@ -61,9 +63,13 @@ function checkLetter() {
 			return;
 		}
 	}
-	console.log(word.blanks);
-	console.log("You got one!! Go again!");
-	getLetter();//recursive function call to keep prompt running
+	console.log(word.blanks);//dispalys blanks after updating user
+
+	if(!done && ){
+		console.log("You got one!! Go again!");
+		getLetter();//recursive function call to keep prompt running
+	}
+
 }
 
 
